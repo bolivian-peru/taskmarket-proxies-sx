@@ -38,7 +38,7 @@ work ships first and the on-chain hook is last.
 | Price | `$4/GB`, min `0.1 GB` (`0.5` for the peer-mobile tier), volume-discounted to `$2.40/GB` at 250 GB+. `maxAmountRequired` in the 402 is authoritative, 6-decimal USDC micro-units. |
 | Credential shape | A paid pool purchase returns a `pak_` pool-access key usable at `gw.proxies.sx:7000` (HTTP CONNECT) / `:7001` (SOCKS5). Username DSL: `psx_<house>-<pool>-<country>[-sid-<id>][-rot-<mode>][-carrier-…][-city-…]`. |
 | Task-scoped sessions, natively | The `-sid-<value>` token creates a sticky session namespace. `-sid-<taskId>` gives every task its own session with zero extra infrastructure. `sid` values are lowercased, split on `-`, so the value must be `[a-z0-9_]` with **no hyphens** — a Taskmarket `0x…`-prefixed 32-byte task id must be normalized (drop `0x`, it is already hex = safe). |
-| Coverage | `mbl` = production carrier modems, 6 countries (US, GB, FR, NL, PL, GE=Georgia). `peer` = the flagship mobile+residential network, ~82+ countries, metered so you pay only for delivered bytes. Live stock: `GET /v1/gateway/pool/stock`. |
+| Coverage | `mbl` is the carrier-modem pool. `peer` is the mobile and residential peer network. Read `pools.mbl` or `pools.peer` in the [live stock response](https://api.proxies.sx/v1/gateway/pool/stock) before choosing a country. |
 | Metering is the enforcement | Bytes are metered per connection and a `pak_` key carries a hard GB cap; over-cap connections get `E_CAP_EXCEEDED` (407) at the gateway. This is what makes a task-budget-bounded credential safe. |
 
 ### Taskmarket side (verified 2026-07-31, `[TM]`)
